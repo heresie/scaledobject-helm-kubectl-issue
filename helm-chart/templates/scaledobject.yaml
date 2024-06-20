@@ -1,0 +1,25 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: myapp
+spec:
+  advanced:
+    horizontalPodAutoscalerConfig:
+      name: myapp
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 60
+    restoreToOriginalReplicaCount: true
+  maxReplicaCount: 10
+  minReplicaCount: 1
+  idleReplicaCount: 0
+  cooldownPeriod: 60
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myapp
+  triggers:
+  - metadata:
+      value: 350m
+    metricType: AverageValue
+    type: cpu
