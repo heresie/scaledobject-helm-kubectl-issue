@@ -5,6 +5,16 @@ This Repository contains test material to demonstrate Helm bug when deploying Sc
 When a `ScaledObject` is updated directly with kubectl, the `spec.maxReplicaCount` is well updated.  
 When a `ScaledObject` is updated through helm, the `spec.maxReplicaCount` is not updated at all.  
 
+Issue : https://github.com/helm/helm/issues/13132
+
+## Prerequisites: Keda
+
+```
+helm repo add kedacore https://kedacore.github.io/charts
+helm repo update
+helm install keda kedacore/keda --namespace keda --create-namespace
+```
+
 ## Demo with `kubectl`
 
 ```
